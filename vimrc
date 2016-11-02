@@ -13,4 +13,7 @@
 :set cindent
 
 " Better command-line completion
-set wildmenu
+:set wildmenu
+
+:colorscheme desert
+
