@@ -12,9 +12,15 @@ if ! which tmux; then
     sudo apt -y install tmux 
 fi
 
-
 #this script install all config files into user
 cp -v vimrc ~/.vimrc
+
+VUNDLE_PATH=~/.vim/bundle/Vundle.vim
+if [ ! -d "$VUNDLE_PATH" ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_PATH 
+	vim +PluginInstall +qall
+fi
+
 
 #copy tmux.conf config file
 
