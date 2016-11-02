@@ -13,6 +13,7 @@
 :set cindent
 
 " Better command-line completion
+:set wildmode=longest,list,full
 :set wildmenu
 
 :colorscheme desert
