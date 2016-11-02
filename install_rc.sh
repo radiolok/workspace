@@ -2,6 +2,8 @@
 
 #lets check does vim exist, if no - install it:
 
+TMUX_PLUGIN_DIR=~/.tmux/plugins
+TMUX_TPM_DIR=$TMUX_PLUGIN_DIR/tpm
 if ! which vim; then
     sudo apt -y install vim
 fi
@@ -18,5 +20,14 @@ cp -v vimrc ~/.vimrc
 
 cp -v tmux.conf ~/.tmux.conf
 
+if [ ! -d "$TMUX_PLUGIN_DIR" ]; then
+	mkdir $TMUX_PLUGIN_DIR
+
+fi
+
+if [ ! -d "$TMUX_TPM_DIR" ]; then
+	git clone https://github.com/tmux-plugins/tpm $TMUX_TPM_DIR
+
+fi
 
 tmux source ~/.tmux.conf
