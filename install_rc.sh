@@ -2,14 +2,42 @@
 
 #lets check does vim exist, if no - install it:
 
+SCRIPT_PATH=$(pwd)
+
 TMUX_PLUGIN_DIR=~/.tmux/plugins
 TMUX_TPM_DIR=$TMUX_PLUGIN_DIR/tpm
-if ! which vim; then
-    sudo apt -y install vim
+
+if [ $(dpkg-query -W -f='${Status}' vim 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install vim
 fi
 
-if ! which tmux; then
-    sudo apt -y install tmux 
+
+if [ $(dpkg-query -W -f='${Status}' tmux 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install tmux 
+fi
+
+if [ $(dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install build-essential 
+fi
+
+
+if [ $(dpkg-query -W -f='${Status}' cmake 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install cmake 
+fi
+
+
+if [ $(dpkg-query -W -f='${Status}' python-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install python-dev 
+fi
+
+if [ $(dpkg-query -W -f='${Status}' python3-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install python3-dev 
 fi
 
 #this script install all config files into user
@@ -18,9 +46,19 @@ cp -v vimrc ~/.vimrc
 VUNDLE_PATH=~/.vim/bundle/Vundle.vim
 if [ ! -d "$VUNDLE_PATH" ]; then
 	git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_PATH 
-	vim +PluginInstall +qall
 fi
 
+
+vim +PluginInstall +qall
+
+YOU_COMPLETE_ME=~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
+
+if [ ! -f "$YOU_COMPLETE_ME" ]; then
+	cd ~/.vim/bundle/YouCompleteMe/
+	./install.py --clang-completer
+
+	cd $SCRIPT_PATH
+fi
 
 #copy tmux.conf config file
 
