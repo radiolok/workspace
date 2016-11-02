@@ -40,6 +40,37 @@ then
   sudo apt -y install python3-dev 
 fi
 
+if [ $(dpkg-query -W -f='${Status}' python-pip 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  sudo apt -y install python-pip 
+fi
+
+#if [ $(pip list |grep leveldb |wc -l )=0 ];
+#then
+#  sudo -E  pip install leveldb
+#fi
+
+#if [ $(pip list |grep clang |wc -l )=0 ];
+#then
+#   sudo -E pip install clang
+#fi
+
+
+#if [ $(pip list |grep ez_setup |wc -l )=0 ];
+#then
+#   sudo -E pip install ez_setup
+#fi
+
+#if [ $(pip list |grep ctrlk |wc -l )=0 ];
+#then
+ #  sudo -E pip install ctrlk
+# git clone https://github.com/SkidanovAlex/py-ctrlk.git
+#  cd py-ctrlk
+#  python setup.py build
+#  sudo python setup.py install
+#
+#fi
+
 #this script install all config files into user
 cp -v vimrc ~/.vimrc
 
