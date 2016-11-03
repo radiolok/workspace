@@ -7,69 +7,43 @@ SCRIPT_PATH=$(pwd)
 TMUX_PLUGIN_DIR=~/.tmux/plugins
 TMUX_TPM_DIR=$TMUX_PLUGIN_DIR/tpm
 
-if [ $(dpkg-query -W -f='${Status}' vim 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install vim
-fi
+InstallPipAppIfNotExist () {
+	if [ $(pip list |grep -c $1) -eq 0 ]; then
+		sudo -E pip install $1
+	fi
+}
 
+InstallIAptAppIfNotExists () {
 
-if [ $(dpkg-query -W -f='${Status}' tmux 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install tmux 
-fi
+	if [ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ];
+	then
+  		sudo apt -y install $1
+	fi
+}
 
-if [ $(dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install build-essential 
-fi
+InstallAppIfNotExists () {
+	
+	#if Ubuntu:
+	InstallIAptAppIfNotExists $1
 
+}
 
-if [ $(dpkg-query -W -f='${Status}' cmake 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install cmake 
-fi
+#install manager and editor
+InstallAppIfNotExists vim
+InstallAppIfNotExists tmux
 
+#and add packets for getting environment for plugins
+InstallAppIfNotExists build-essential
+InstallAppIfNotExists cmake
+InstallAppIfNotExists python-dev
+InstallAppIfNotExists python3-dev
+InstallAppIfNotExists python-pip
 
-if [ $(dpkg-query -W -f='${Status}' python-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install python-dev 
-fi
+InstallPipAppIfNotExist leveldb
+InstallPipAppIfNotExist clang
+InstallPipAppIfNotExist ez-setup
+InstallPipAppIfNotExist ctrlk
 
-if [ $(dpkg-query -W -f='${Status}' python3-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install python3-dev 
-fi
-
-if [ $(dpkg-query -W -f='${Status}' python-pip 2>/dev/null | grep -c "ok installed") -eq 0 ];
-then
-  sudo apt -y install python-pip 
-fi
-
-#if [ $(pip list |grep leveldb |wc -l )=0 ];
-#then
-#  sudo -E  pip install leveldb
-#fi
-
-#if [ $(pip list |grep clang |wc -l )=0 ];
-#then
-#   sudo -E pip install clang
-#fi
-
-
-#if [ $(pip list |grep ez_setup |wc -l )=0 ];
-#then
-#   sudo -E pip install ez_setup
-#fi
-
-#if [ $(pip list |grep ctrlk |wc -l )=0 ];
-#then
- #  sudo -E pip install ctrlk
-# git clone https://github.com/SkidanovAlex/py-ctrlk.git
-#  cd py-ctrlk
-#  python setup.py build
-#  sudo python setup.py install
-#
-#fi
 
 #this script install all config files into user
 cp -v vimrc ~/.vimrc
