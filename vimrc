@@ -9,7 +9,9 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+"Plugin 'SkidanovAlex/CtrlK'
 Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -26,7 +28,12 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-
+let g:ctrlk_clang_library_path="libclang_so_path"
+nmap <F3> :call GetCtrlKState()<CR>
+nmap <C-k> :call CtrlKNavigateSymbols()<CR>
+nmap <F2> :call CtrlKGoToDefinition()<CR>
+nmap <F12> :call CtrlKGetReferences()<CR>
+	 
 "Set highlight for search
 :set hlsearch
 "case non-sensitive search by default:
@@ -45,5 +52,5 @@ filetype plugin indent on    " required
 :set wildmode=longest,list,full
 :set wildmenu
 
-:colorscheme desert
+
 

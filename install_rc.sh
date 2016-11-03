@@ -9,7 +9,7 @@ TMUX_TPM_DIR=$TMUX_PLUGIN_DIR/tpm
 
 InstallPipAppIfNotExist () {
 	if [ $(pip list |grep -c $1) -eq 0 ]; then
-		sudo -E pip install $1
+		sudo -E pip3 install $1
 	fi
 }
 
@@ -38,15 +38,31 @@ InstallAppIfNotExists cmake
 InstallAppIfNotExists python-dev
 InstallAppIfNotExists python3-dev
 InstallAppIfNotExists python-pip
+InstallAppIfNotExists python3-pip
+
 
 InstallPipAppIfNotExist leveldb
 InstallPipAppIfNotExist clang
 InstallPipAppIfNotExist ez-setup
 InstallPipAppIfNotExist ctrlk
 
+cp ./vimrc ./vimrc_tmp 
+#Got autoindent libclang:
+CLANG_LIB_PATH=$(find /usr/lib -name "libclang.so")
+if [ ! $CLANG_LIB_PATH ]; then
+	CLANG_LIB1_PATH=$(find /usr/lib -name "libclang.so.*")
+	if [ $CLANG_LIB1_PATH ]; then
+		CLANG_DIR=$(dirname "$CLANG_LIB1_PATH")
+		sudo ln -s $CLANG_LIB1_PATH $CLANG_DIR/libclang.so
+		sed -i -e "s#libclang_so_path#$CLANG_DIR#" ./vimrc_tmp 
+	fi
+else
+	sed -i -e "s#libclang_so_path#$(dirname "$CLANG_LIB_PATH")#" ./vimrc_tmp
+fi
 
 #this script install all config files into user
-cp -v vimrc ~/.vimrc
+cp -v vimrc_tmp ~/.vimrc
+rm -f vimrc_tmp
 
 VUNDLE_PATH=~/.vim/bundle/Vundle.vim
 if [ ! -d "$VUNDLE_PATH" ]; then
