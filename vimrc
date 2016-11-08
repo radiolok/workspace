@@ -43,7 +43,7 @@ nmap <F12> :call CtrlKGetReferences()<CR>
 "Set incremental search
 :set incsearch
 
-:colorscheme  delek
+:colorscheme  desert
 "Set C-standard auto-indent
 :set cindent
 
