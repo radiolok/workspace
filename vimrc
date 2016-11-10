@@ -12,8 +12,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 Plugin 'FuzzyFinder'
 "Plugin 'SkidanovAlex/CtrlK'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 "All of your Plugins must be added before the following line
+
+"Syntax checking hacks for vim
+Plugin 'scrooloose/syntastic'
+
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -47,10 +53,21 @@ nmap <F12> :call CtrlKGetReferences()<CR>
 "Set C-standard auto-indent
 :set cindent
 
+:set ts=2 sw=2 et
+let g:indent_guides_start_level=2
+
 " Better command-line completion
 
 :set wildmode=longest,list,full
 :set wildmenu
 
+" Settings for Syntax checking hacks for vim
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
