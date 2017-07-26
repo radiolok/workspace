@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 Plugin 'FuzzyFinder'
+Plugin 'haya14busa/incsearch.vim'
 "Plugin 'SkidanovAlex/CtrlK'
 "Plugin 'nathanaelkane/vim-indent-guides'
 
@@ -89,6 +90,11 @@ let g:syntastic_check_on_wq = 0
 :map <A-7> 7gt
 :map <A-8> 8gt
 :map <A-9> 9gt
+
+"incsearch 
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 "NERDTree: new tab with F2
 "map :tabnew
