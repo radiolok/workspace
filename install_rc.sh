@@ -30,7 +30,15 @@ InstallAppIfNotExists () {
 #install Useful applications
 InstallAppIfNotExists mc
 InstallAppIfNotExists git
+InstallAppIfNotExists smartmontools
+InstallAppIfNotExists samba
 
+InstallAppIfNotExists cpu-checker
+InstallAppIfNotExists qemu-kvm
+InstallAppIfNotExists libvirt-bin
+InstallAppIfNotExists ubuntu-vm-builder
+InstallAppIfNotExists bridge-utils
+InstallAppIfNotExists virt-manager
 
 #install manager and editor
 InstallAppIfNotExists vim
