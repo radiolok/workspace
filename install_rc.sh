@@ -27,6 +27,10 @@ InstallAppIfNotExists () {
 	InstallIAptAppIfNotExists $1
 
 }
+#install Useful applications
+InstallAppIfNotExists mc
+InstallAppIfNotExists git
+
 
 #install manager and editor
 InstallAppIfNotExists vim
