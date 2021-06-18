@@ -18,15 +18,9 @@ Plugin 'haya14busa/incsearch.vim'
 "Vim plugin that use clang for completing C/C++ code
 "Plugin 'rip-rip/clang_complete'
 
-"A tree explorer plugin
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'https://github.com/Valloric/YouCompleteMe.git'
-"All of your Plugins must be added before the following line
-
 "Syntax checking hacks for vim
 Plugin 'scrooloose/syntastic'
-
+let g:syntastic_cpp_compiler_options = ' -std=c++17 -stdlib=libc++'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
